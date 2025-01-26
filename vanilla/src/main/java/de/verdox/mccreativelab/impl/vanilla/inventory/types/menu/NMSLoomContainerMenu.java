@@ -8,10 +8,6 @@ import de.verdox.mccreativelab.wrapper.inventory.types.container.MCCResultContai
 import de.verdox.mccreativelab.wrapper.inventory.types.menu.MCCLoomContainerMenu;
 import de.verdox.mccreativelab.wrapper.platform.MCCHandle;
 import net.minecraft.world.inventory.LoomMenu;
-import org.bukkit.block.banner.PatternType;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.List;
 
 public class NMSLoomContainerMenu extends NMSContainerMenu<MCCBlockContainerSource, LoomMenu, MCCResultContainer> implements MCCLoomContainerMenu {
     public static final MCCConverter<LoomMenu, NMSLoomContainerMenu> CONVERTER = converter(NMSLoomContainerMenu.class, LoomMenu.class, NMSLoomContainerMenu::new, MCCHandle::getHandle);

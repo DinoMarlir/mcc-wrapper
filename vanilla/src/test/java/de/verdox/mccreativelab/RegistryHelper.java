@@ -4,9 +4,7 @@ import com.google.common.util.concurrent.MoreExecutors;
 import net.minecraft.SharedConstants;
 import net.minecraft.commands.Commands;
 import net.minecraft.core.LayeredRegistryAccess;
-import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.RegistryDataLoader;
 import net.minecraft.server.Bootstrap;
 import net.minecraft.server.RegistryLayer;
@@ -18,7 +16,6 @@ import net.minecraft.server.packs.repository.PackRepository;
 import net.minecraft.server.packs.repository.ServerPacksSource;
 import net.minecraft.server.packs.resources.MultiPackResourceManager;
 import net.minecraft.world.flag.FeatureFlagSet;
-import net.minecraft.world.level.biome.Biome;
 import org.bukkit.Keyed;
 import org.bukkit.NamespacedKey;
 
