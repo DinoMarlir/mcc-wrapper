@@ -65,6 +65,7 @@ import net.minecraft.world.Difficulty;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.level.GameType;
+import org.apache.commons.lang.NotImplementedException;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.VisibleForTesting;
@@ -94,7 +95,7 @@ public class NMSPlatform implements MCCPlatform {
      * @param reloadableRegistries the registry access to the reloadable resources
      */
     @VisibleForTesting
-    public NMSPlatform(RegistryAccess.Frozen fullRegistryAccess, RegistryAccess.Frozen reloadableRegistries){
+    public NMSPlatform(RegistryAccess.Frozen fullRegistryAccess, RegistryAccess.Frozen reloadableRegistries) {
         this.typedKeyFactory = new NMSTypedKeyFactory();
         this.conversionService = new ConversionServiceImpl();
         this.containerFactory = new NMSContainerFactory(this);
@@ -161,13 +162,13 @@ public class NMSPlatform implements MCCPlatform {
 
     @Override
     public MCCServerProperties getServerProperties() {
-        DedicatedServer dedicatedServer = (DedicatedServer) MinecraftServer.getServer();
+        DedicatedServer dedicatedServer = (DedicatedServer) getServer();
         return new MCCServerProperties(dedicatedServer.getProperties().properties, () -> dedicatedServer.settings.forceSave());
     }
 
     @Override
     public void shutdown() {
-        MinecraftServer.getServer().halt(false);
+        getServer().halt(false);
     }
 
     @Override
@@ -204,7 +205,7 @@ public class NMSPlatform implements MCCPlatform {
     @Override
     public @NotNull List<MCCWorld> getWorlds() {
         List<MCCWorld> worlds = new LinkedList<>();
-        MinecraftServer.getServer().getAllLevels().forEach(serverLevel -> {
+        getServer().getAllLevels().forEach(serverLevel -> {
             worlds.add(getConversionService().wrap(serverLevel, new TypeToken<>() {}));
         });
         return worlds;
@@ -212,12 +213,12 @@ public class NMSPlatform implements MCCPlatform {
 
     @Override
     public @Nullable MCCPlayer getOnlinePlayer(@NotNull UUID uuid) {
-        return conversionService.wrap(MinecraftServer.getServer().getPlayerList().getPlayer(uuid));
+        return conversionService.wrap(getServer().getPlayerList().getPlayer(uuid));
     }
 
     @Override
     public @NotNull List<MCCPlayer> getOnlinePlayers() {
-        return MinecraftServer.getServer().getPlayerList().getPlayers().stream().map(serverPlayer -> getConversionService().wrap(serverPlayer, new TypeToken<MCCPlayer>() {})).toList();
+        return getServer().getPlayerList().getPlayers().stream().map(serverPlayer -> getConversionService().wrap(serverPlayer, new TypeToken<MCCPlayer>() {})).toList();
     }
 
     @Override
@@ -280,7 +281,7 @@ public class NMSPlatform implements MCCPlatform {
         conversionService.registerConverterForNewImplType(MCCSmithingContainerMenu.class, NMSSmithingContainerMenu.CONVERTER);
     }
 
-    private void registerEntityClasses(){
+    private void registerEntityClasses() {
         conversionService.registerConverterForNewImplType(MCCEntity.class, NMSEntity.CONVERTER);
         conversionService.registerConverterForNewImplType(MCCLivingEntity.class, NMSLivingEntity.CONVERTER);
         conversionService.registerConverterForNewImplType(MCCItemEntity.class, NMSItemEntity.CONVERTER);
@@ -296,5 +297,9 @@ public class NMSPlatform implements MCCPlatform {
         conversionService.registerConverterForNewImplType(MCCEquipmentSlotGroup.class, new EnumConverter<>(EquipmentSlotGroup.class, MCCEquipmentSlotGroup.class));
         conversionService.registerConverterForNewImplType(MCCGameMode.class, new EnumConverter<>(GameType.class, MCCGameMode.class));
         conversionService.registerConverterForNewImplType(MCCDifficulty.class, new EnumConverter<>(Difficulty.class, MCCDifficulty.class));
+    }
+
+    private @NotNull MinecraftServer getServer() {
+        throw new NotImplementedException("This method is not implemented yet");
     }
 }
