@@ -14,12 +14,12 @@ subprojects {
     apply(plugin = "java")
 
     repositories {
-        mavenCentral()
-        mavenLocal()
         maven {
             name = "Verdox Reposilite"
             url = uri("https://repo.verdox.de/snapshots")
         }
+        mavenCentral()
+        mavenLocal()
     }
 
     java {
@@ -30,10 +30,10 @@ subprojects {
 
     dependencies {
         compileOnly("net.kyori:adventure-api:4.17.0")
-        compileOnly("de.verdox:vserializer:+")
+        //compileOnly("de.verdox:vserializer:1.5.0")
         compileOnly("it.unimi.dsi:fastutil:8.5.15")
         implementation("com.google.guava:guava:33.3.1-jre")
-        testImplementation("de.verdox:vserializer:+")
+        //testImplementation("de.verdox:vserializer:1.5.0")
     }
 
     publishing {
@@ -41,10 +41,10 @@ subprojects {
             maven {
                 name = "verdox"
                 url = uri("https://repo.verdox.de/snapshots")
-                credentials {
-                    username = (findProperty("reposilite.verdox.user") ?: System.getenv("REPO_USER")).toString()
-                    password = (findProperty("reposilite.verdox.key") ?: System.getenv("REPO_PASSWORD")).toString()
-                }
+                //credentials {
+                //    username = (findProperty("reposilite.verdox.user") ?: System.getenv("REPO_USER")).toString()
+                //    password = (findProperty("reposilite.verdox.key") ?: System.getenv("REPO_PASSWORD")).toString()
+                //}
             }
         }
     }
