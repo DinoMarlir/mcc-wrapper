@@ -8,7 +8,6 @@ import de.verdox.mccreativelab.wrapper.inventory.source.MCCBlockContainerSource;
 import de.verdox.mccreativelab.wrapper.inventory.types.menu.MCCEnchantingTableContainerMenu;
 import de.verdox.mccreativelab.wrapper.platform.MCCHandle;
 import net.minecraft.world.inventory.EnchantmentMenu;
-import org.bukkit.enchantments.EnchantmentOffer;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
